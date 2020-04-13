@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +12,17 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//get token for login
+Route::post('/login', 'LoginController@login')->name('login');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::middleware('signed')->get('/verifyDevice/{id}/{hash}', 'LoginController@verifyDevice')->name('verification.device');
+    Route::middleware('throttle:2,10')->get('/registerDevice', 'LoginController@registerDevice')->name('register.device');
+
+    Route::middleware('verify.device')->group(function () {
+        Route::apiResource('/products', 'ProductsController');
+        Route::apiResource('/tasks', 'TaskController');
+    });
 });
 
-Route::apiResource('products', 'ProductsController');
 
-Route::apiResource('/tasks', 'TaskController');

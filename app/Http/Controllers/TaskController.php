@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\RegisterDevice;
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::all();
-
-        return response()->json($tasks);
+        return Task::all();
     }
 
     public function store(Request $request)

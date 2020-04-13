@@ -4,42 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
+     * @return Product[]
      */
     public function index()
     {
-        $tasks = Product::all();
+//        $this->authorize('see-products');
 
-        return response()->json($tasks);
+        return Product::all();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return array
      */
     public function store(Request $request)
     {
-        $task = Product::create($request->all());
+        $products = Product::create($request->all());
 
-        return response()->json([
-            'message' => 'Great success! New task created',
-            'task' => $task
-        ]);
+        return [
+            'message' => 'Great success! New product created',
+            'task' => $products
+        ];
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return Product
      */
     public function show(Product $product)
     {
@@ -49,27 +51,26 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Product  $product
+     * @return array
      */
     public function update(Request $request, Product $product)
     {
-        //
+        return ['message' => 'not now'];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return array
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return response()->json([
-            'message' => 'Successfully deleted task!'
-        ]);
+        return ['message' => 'Successfully deleted product!'];
     }
 }
