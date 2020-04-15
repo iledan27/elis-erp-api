@@ -2,14 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\RegisterDevice;
 use App\Task;
-use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * @OA\Get(
+     *      path="/api/tasks/",
+     *      operationId="index",
+     *      tags={"Tasks"},
+     *      description="Returns list of tasks",
+     *      security={{"authbearer": {}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *             mediaType="application/json"
+     *          )
+     *      )
+     * )
+     */
+    public function index()
     {
         return Task::all();
     }
@@ -29,6 +43,32 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/tasks/{id}",
+     *      operationId="show",
+     *      tags={"Tasks"},
+     *      description="Returns a tasks",
+     *      security={{"authbearer": {}}},
+     *      @OA\Parameter(
+     *         description="ID of task to fetch",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64",
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *             mediaType="application/json"
+     *          )
+     *      )
+     * )
+     */
     public function show(Task $task)
     {
         return $task;

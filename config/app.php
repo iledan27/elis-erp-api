@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        
+
         /*
          * Application Service Providers...
          */
@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
-
+        L5Swagger\L5SwaggerServiceProvider::class,
     ],
 
     /*

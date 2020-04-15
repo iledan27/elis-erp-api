@@ -17,7 +17,7 @@ Route::post('/login', 'LoginController@login')->name('login');
 
 Route::middleware('auth:api')->group(function () {
     Route::middleware('signed')->get('/verifyDevice/{id}/{hash}', 'LoginController@verifyDevice')->name('verification.device');
-    Route::middleware('throttle:2,10')->get('/registerDevice', 'LoginController@registerDevice')->name('register.device');
+    Route::middleware('throttle:100,10')->get('/registerDevice', 'LoginController@registerDevice')->name('register.device');
 
     Route::middleware('verify.device')->group(function () {
         Route::apiResource('/products', 'ProductsController');

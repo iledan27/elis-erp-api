@@ -30,6 +30,59 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/verifyDevice/{id}/{hash}",
+     *      operationId="verifyDevice",
+     *      tags={"Login"},
+     *      description="Verify a Device",
+     *      security={{"authbearer": {}}},
+     *      @OA\Parameter(
+     *         description="ID of the user that add the device",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64",
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         description="Hash of the user browser id",
+     *         in="path",
+     *         name="hash",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         description="Expire date of the link",
+     *         in="query",
+     *         name="expires",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         description="Hash of the link",
+     *         in="query",
+     *         name="signature",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *             mediaType="application/json"
+     *          )
+     *      )
+     * )
+    */
     public function verifyDevice(Request $request)
     {
         if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
