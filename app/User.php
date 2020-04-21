@@ -39,4 +39,44 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @OA\Schema(
+     *  type="object",
+     *  schema="User",
+     *  description="User model",
+     *  title="User",
+     *  required={"id","name", "email"},
+     *  properties={
+     *    @OA\Property(
+     *       property="id",
+     *       type="integer",
+     *       format="int64",
+     *     ),
+     *     @OA\Property(
+     *       property="name",
+     *       type="string",
+     *     ),
+     *     @OA\Property(
+     *       property="email",
+     *       type="string",
+     *     ),
+     *     @OA\Property(
+     *       property="email_verified_at",
+     *       type="string",
+     *       format="date-time"
+     *     ),
+     *     @OA\Property(
+     *       property="created_at",
+     *       type="string",
+     *       format="date-time"
+     *     ),
+     *     @OA\Property(
+     *       property="updated_at",
+     *       type="string",
+     *       format="date-time"
+     *     ),
+     *  }
+     * )
+     */
 }
